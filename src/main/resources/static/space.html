@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>个人资料</title>
+<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="js/space.js"></script>
+</head>
+<body>
+	<h1><a href="/">PP Team</a></h1>
+
+	<hr/>
+
+	<h3>个人资料</h3>
+	<div id="prompt"></div>
+
+	<img id="p" src="img/default.jpg" width="100"/>
+	<br/>
+	<form action="">
+		<input type="file" accept="image/*"/>
+	</form>
+	<button onclick="modInfo()">修改个人资料</button>|<a href="/security">账号安全设置</a><br/>
+	用户名：<div id="username"></div>
+	性别：<div id="gender"></div>
+	个性签名：<div id="sig"></div>
+	
+	<div id="btnarea"></div>
+
+</body>
+</html>

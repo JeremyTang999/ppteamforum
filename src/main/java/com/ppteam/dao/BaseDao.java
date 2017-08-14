@@ -1,6 +1,6 @@
 package com.ppteam.dao;
 
-import com.ppteam.dao.exceptions.DaoUpdateFailException;
+import com.ppteam.dao.exceptions.*;
 
 /**
  * BaseDao，封装基本的增删查改方法，一实体类对应一具体Dao接口，可能有多个实现类
@@ -14,7 +14,7 @@ public interface BaseDao<T> {
      * @return 返回自增主键
      * @throws DaoUpdateFailException
      */
-    Integer add(T t) throws DaoUpdateFailException;
+    Integer add(T t) throws DaoUpdateFailException,MoreThanOneResultException;
 
     /**
      * 删方法
@@ -29,7 +29,7 @@ public interface BaseDao<T> {
      * @return
      * @throws DaoUpdateFailException
      */
-    T get(int id) throws DaoUpdateFailException;
+    T get(int id) throws DaoQueryFailException,MoreThanOneResultException;
 
     /**
      * 改方法

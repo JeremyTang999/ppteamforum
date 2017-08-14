@@ -1,7 +1,9 @@
 package com.ppteam.dao.impl;
 
 import com.ppteam.dao.BaseDao;
+import com.ppteam.dao.exceptions.DaoQueryFailException;
 import com.ppteam.dao.exceptions.DaoUpdateFailException;
+import com.ppteam.dao.exceptions.MoreThanOneResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.session.SessionProperties;
 import org.springframework.dao.DataAccessException;
@@ -65,7 +67,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      * 数据库更新失败则抛出
      */
     @Override
-    public Integer add(T t) throws DaoUpdateFailException {
+    public Integer add(T t) throws DaoUpdateFailException ,MoreThanOneResultException{
         try {
             //实体类的所有属性名及属性值
             Map<String,Object> namesAndFields=getFields(t);
@@ -125,8 +127,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             if(l.size()==1){
                 return l.get(0);
             }
-            else{
+            else if(l.size()==0){
                 return null;
+            }else{
+                throw new MoreThanOneResultException();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -162,7 +166,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      *   查询失败则抛出
      */
     @Override
-    public T get(int id) throws DaoUpdateFailException {
+    public T get(int id) throws DaoQueryFailException,MoreThanOneResultException {
         List<T> l;
         try {
             String sql = "select * from " +
@@ -172,11 +176,18 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             if(l.size()==1){
                 return l.get(0);
             }
+            else if(l.size()==0){
+                return null;
+            }
+            else{
+                throw new MoreThanOneResultException();
+            }
+
         }catch (Exception e){
             e.printStackTrace();
-            throw new DaoUpdateFailException();
+            throw new DaoQueryFailException();
         }
-        return null;
+
     }
 
     /**

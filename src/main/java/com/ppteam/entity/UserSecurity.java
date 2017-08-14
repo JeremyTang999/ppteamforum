@@ -13,8 +13,15 @@ public class UserSecurity {
     public UserSecurity() {
     }
 
-    public UserSecurity(String answer1) {
+    public UserSecurity(Integer userId, String password, String question1, String answer1, String question2, String answer2, String question3, String answer3) {
+        this.userId = userId;
+        this.password = password;
+        this.question1 = question1;
         this.answer1 = answer1;
+        this.question2 = question2;
+        this.answer2 = answer2;
+        this.question3 = question3;
+        this.answer3 = answer3;
     }
 
     public Integer getUserId() {
