@@ -6,8 +6,9 @@ var info;
 $(document).ready(function(){
 	
 	$.ajax({
-		url:"/user/basicinfo",
+		url:"/api/user",
 		type:"GET",
+		data:{"from_context":true},
 		async:false,
 		success:function(data,status){
 			id=data.id;
@@ -17,7 +18,7 @@ $(document).ready(function(){
 	});
 	
 	$.ajax({
-		url:"/user/userinfo",
+		url:"/api/user_info",
 		type:"GET",
 		data:"id="+id,
 		success:function(data,status){
@@ -66,7 +67,7 @@ function modInfo(){
 	}*/
 	$("#"+info.gender).attr("checked","true");
 	$("#sig").html('<textarea id="sigvalue">'+
-			info.personalSignature+'</textarea>');
+		(info.personalSignature==null?'':info.personalSignature)+'</textarea>');
 	$("#btnarea").html('<button id="submit" onclick="infoSubmit()">提交</button>')
 }
 
@@ -79,8 +80,8 @@ function infoSubmit(){
 	};
 	$.ajax({
 		data:JSON.stringify(obj),
-		url:"/user/userinfo",
-		type:"POST",
+		url:"/api/user_info",
+		type:"PUT",
 		contentType:"application/json",
 		error:function(xhr,status,error){
 			alert("修改失败，请重试");

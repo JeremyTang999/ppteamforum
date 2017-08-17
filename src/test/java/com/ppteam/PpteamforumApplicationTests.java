@@ -2,6 +2,7 @@ package com.ppteam;
 
 import com.ppteam.dao.*;
 import com.ppteam.entity.*;
+import com.ppteam.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,16 @@ public class PpteamforumApplicationTests {
 	@Autowired
 	UserSecurityDao userSecurityDao;
 
+	@Autowired
+	UserService userService;
+
 	@Test
 	public void contextLoads() {
+	}
+
+	@Test
+	public void userServiceTest(){
+
 	}
 
 	@Test

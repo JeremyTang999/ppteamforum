@@ -1,8 +1,11 @@
-package com.ppteam.entity;
+package com.ppteam.dto;
 
-public class Article {
+import com.ppteam.entity.*;
+import com.ppteam.entity.Topic;
+
+public class ArticleDto {
     private Integer id;
-    private Topic topic;
+    private String topic;
     private String title;
     private String content;
     private Integer authorId;
@@ -10,10 +13,10 @@ public class Article {
     private Integer readCount;
     private Integer likeCount;
 
-    public Article() {
+    public ArticleDto() {
     }
 
-    public Article(Integer id, Topic topic, String title, String content, Integer authorId, Long creationTime, Integer readCount, Integer likeCount) {
+    public ArticleDto(Integer id, String topic, String title, String content, Integer authorId, Long creationTime, Integer readCount, Integer likeCount) {
         this.id = id;
         this.topic = topic;
         this.title = title;
@@ -24,6 +27,17 @@ public class Article {
         this.likeCount = likeCount;
     }
 
+    public ArticleDto(Article article){
+        id=new Integer(article.getId());
+        topic=new String(article.getTopic().toString());
+        title=new String(article.getTitle());
+        content=new String(article.getContent());
+        authorId=new Integer(article.getAuthorId());
+        creationTime=new Long(article.getCreationTime());
+        readCount=new Integer(article.getReadCount());
+        likeCount=new Integer(article.getLikeCount());
+    }
+
     public Integer getId() {
         return id;
     }
@@ -32,11 +46,11 @@ public class Article {
         this.id = id;
     }
 
-    public Topic getTopic() {
+    public String getTopic() {
         return topic;
     }
 
-    public void setTopic(Topic topic) {
+    public void setTopic(String topic) {
         this.topic = topic;
     }
 

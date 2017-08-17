@@ -103,9 +103,9 @@
 >>>已登录:
 >>>```json
 >>>{
->>>    "question1":"??",
->>>    "question2":"??",
->>>    "question3":"??"
+>>>    "oldQuestion1":"??",
+>>>    "oldQuestion2":"??",
+>>>    "oldQuestion3":"??"
 >>>}
 >>>```
 
@@ -114,11 +114,13 @@
 
  
 
-> #### method POST
+> #### method PUT
 >> ##### request
 
+>>>"update"属性用于指定是否为修改用途，否则新密码、新密保问题无效
 >>>```json
 >>>{
+>>>    "update":true,
 >>>    "oldPassword":"??",
 >>>    "oldQuestion1":"??",
 >>>    "oldAnswer1":"??",

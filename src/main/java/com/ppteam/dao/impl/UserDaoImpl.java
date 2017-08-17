@@ -2,6 +2,7 @@ package com.ppteam.dao.impl;
 
 import com.ppteam.dao.*;
 import com.ppteam.dao.exceptions.DaoQueryFailException;
+import com.ppteam.dao.exceptions.MoreThanOneResultException;
 import com.ppteam.entity.User;
 import com.ppteam.entity.UserRole;
 import jdk.nashorn.internal.scripts.JD;
@@ -27,7 +28,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
     }
 
     @Override
-    public User getByUsername(String username) throws DaoQueryFailException{
+    public User getByUsername(String username) throws MoreThanOneResultException{
         List<User> l=jdbcTemplate.query("SELECT * FROM user where username=?", new Object[]{username},
                 new RowMapper<User>() {
                     @Override
@@ -47,7 +48,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
             return null;
         }
         else{
-            throw new DaoQueryFailException();
+            throw new MoreThanOneResultException();
         }
     }
 }

@@ -42,6 +42,16 @@ function regProc(){
 		alert("密保问题不能相同");
 		
 	}
+	else if($("#question1").val()=="" ||
+        	$("#question2").val()=="" ||
+        	$("#question3").val()==""){
+		alert("问题不能为空");
+	}
+	else if($("#answer1").val()=="" ||
+        	$("#answer2").val()=="" ||
+        	$("#answer3").val()==""){
+		alert("答案不能为空");
+	}
 	else{
 //		alert($("input[name='gender']:checked").val());
 		var obj={

@@ -31,7 +31,7 @@ import java.util.*;
  *     一具体实体类的DaoImpl需继承此基类<br>
  *     为了使用事务可由BaseDao接口继承出具体Dao接口，同时具体的DaoImpl类也需实现该接口
  * For example:
- * public class UserDaoImpl extends BaseDaoImpl &lt; User &gt implements UserDao{}
+ * public class UserDaoImpl extends BaseDaoImpl &lt; UserDto &gt implements UserDao{}
  *
  * @param <T>
  *     传入实体类，默认根据属性名进行数据库字段操作
@@ -132,7 +132,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             }else{
                 throw new MoreThanOneResultException();
             }
-        }catch (Exception e){
+        }catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
             e.printStackTrace();
             throw  new DaoUpdateFailException();
         }
@@ -166,27 +166,24 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      *   查询失败则抛出
      */
     @Override
-    public T get(int id) throws DaoQueryFailException,MoreThanOneResultException {
+    public T get(int id) throws MoreThanOneResultException {
         List<T> l;
-        try {
-            String sql = "select * from " +
-                    pascalToUnderling(entityType.getSimpleName()) +
-                    " where " + humpToUnderling(idFieldName) + "=?";
-            l = jdbcTemplate.query(sql, new Object[]{id},new MyRowMapper(getTypes()));
-            if(l.size()==1){
-                return l.get(0);
-            }
-            else if(l.size()==0){
-                return null;
-            }
-            else{
-                throw new MoreThanOneResultException();
-            }
 
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new DaoQueryFailException();
+        String sql = "select * from " +
+                pascalToUnderling(entityType.getSimpleName()) +
+                " where " + humpToUnderling(idFieldName) + "=?";
+        l = jdbcTemplate.query(sql, new Object[]{id},new MyRowMapper(getTypes()));
+        if(l.size()==1){
+            return l.get(0);
         }
+        else if(l.size()==0){
+            return null;
+        }
+        else{
+            throw new MoreThanOneResultException();
+        }
+
+
 
     }
 
@@ -305,7 +302,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
             jdbcTemplate.update(sql,queryFieldObjects);
             System.out.println(sql);
-        }catch (Exception e){
+        }catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
             e.printStackTrace();
             throw new DaoUpdateFailException();
         }
