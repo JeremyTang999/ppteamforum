@@ -58,4 +58,16 @@ public interface UserService {
      * @return
      */
     boolean signUp(SignUpDto signUpDto);
+
+    /**
+     * 从security容器获取用户名
+     * @return
+     */
+    String getUsernameFromSecurity();
+
+    /**
+     * 根据从security容器获取用户名获取id
+     * @return
+     */
+    Integer getUserIdFromSecurity();
 }

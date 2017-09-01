@@ -114,8 +114,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
                     "("+queryFieldNames+") "+
                     "values("+marks+")";
 
-            jdbcTemplate.update(sql,queryFieldObjects);
             System.out.println(sql);
+            jdbcTemplate.update(sql,queryFieldObjects);
+
 
             //查询自增id
             List<Integer> l=jdbcTemplate.query("SELECT last_insert_id()", new RowMapper<Integer>() {
@@ -150,6 +151,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             String sql="delete from " +
                     pascalToUnderling(entityType.getSimpleName()) +
                     " where "+humpToUnderling(idFieldName)+"=?";
+            System.out.println(sql);
             jdbcTemplate.update(sql,id);
         }catch (DataAccessException e){
             e.printStackTrace();
@@ -172,6 +174,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         String sql = "select * from " +
                 pascalToUnderling(entityType.getSimpleName()) +
                 " where " + humpToUnderling(idFieldName) + "=?";
+        System.out.println(sql);
         l = jdbcTemplate.query(sql, new Object[]{id},new MyRowMapper(getTypes()));
         if(l.size()==1){
             return l.get(0);
@@ -299,9 +302,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             }
             //去掉最后一个逗号并拼接where条件语句
             sql=sql.substring(0,sql.length()-1)+" where "+humpToUnderling(idFieldName)+"=?";
-
-            jdbcTemplate.update(sql,queryFieldObjects);
             System.out.println(sql);
+            jdbcTemplate.update(sql,queryFieldObjects);
+
         }catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
             e.printStackTrace();
             throw new DaoUpdateFailException();

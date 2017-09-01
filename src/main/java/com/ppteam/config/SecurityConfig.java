@@ -3,6 +3,7 @@ package com.ppteam.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,7 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers(HttpMethod.PUT,"/api/user_info").authenticated()
+                .antMatchers("/api/user_security").authenticated()
+                .antMatchers("/space.html").authenticated()
+                .antMatchers("/security.html").authenticated()
+                .antMatchers(HttpMethod.POST,"/image/avatar").authenticated()
+                .antMatchers("/uploadavatar.html").authenticated()
+                .anyRequest().permitAll()
                 .and()
                     .formLogin()
                     .loginPage("/login.html")

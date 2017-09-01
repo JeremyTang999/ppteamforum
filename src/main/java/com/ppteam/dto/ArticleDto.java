@@ -1,12 +1,12 @@
 package com.ppteam.dto;
 
 import com.ppteam.entity.*;
-import com.ppteam.entity.Topic;
 
 public class ArticleDto {
     private Integer id;
     private String topic;
     private String title;
+    private String thumbnailName;
     private String content;
     private Integer authorId;
     private Long creationTime;
@@ -16,10 +16,11 @@ public class ArticleDto {
     public ArticleDto() {
     }
 
-    public ArticleDto(Integer id, String topic, String title, String content, Integer authorId, Long creationTime, Integer readCount, Integer likeCount) {
+    public ArticleDto(Integer id, String topic, String title, String thumbnailName, String content, Integer authorId, Long creationTime, Integer readCount, Integer likeCount) {
         this.id = id;
         this.topic = topic;
         this.title = title;
+        this.thumbnailName = thumbnailName;
         this.content = content;
         this.authorId = authorId;
         this.creationTime = creationTime;
@@ -31,6 +32,7 @@ public class ArticleDto {
         id=new Integer(article.getId());
         topic=new String(article.getTopic().toString());
         title=new String(article.getTitle());
+        thumbnailName =new String(article.getThumbnailName());
         content=new String(article.getContent());
         authorId=new Integer(article.getAuthorId());
         creationTime=new Long(article.getCreationTime());
@@ -100,5 +102,13 @@ public class ArticleDto {
 
     public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public String getThumbnailName() {
+        return thumbnailName;
+    }
+
+    public void setThumbnailName(String thumbnailName) {
+        this.thumbnailName = thumbnailName;
     }
 }

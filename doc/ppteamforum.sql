@@ -33,6 +33,7 @@ create table article(
     id int primary key auto_increment,
     topic varchar(16) not null default 'sim',
     title varchar(255) not null,
+    thumbnail_name varchar(255),
     content text,
     author_id int,
     creation_time bigint,

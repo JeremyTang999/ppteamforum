@@ -4,6 +4,7 @@ public class Article {
     private Integer id;
     private Topic topic;
     private String title;
+    private String thumbnailName;
     private String content;
     private Integer authorId;
     private Long creationTime;
@@ -13,10 +14,12 @@ public class Article {
     public Article() {
     }
 
-    public Article(Integer id, Topic topic, String title, String content, Integer authorId, Long creationTime, Integer readCount, Integer likeCount) {
+
+    public Article(Integer id, Topic topic, String title, String thumbnailName, String content, Integer authorId, Long creationTime, Integer readCount, Integer likeCount) {
         this.id = id;
         this.topic = topic;
         this.title = title;
+        this.thumbnailName = thumbnailName;
         this.content = content;
         this.authorId = authorId;
         this.creationTime = creationTime;
@@ -86,5 +89,13 @@ public class Article {
 
     public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public String getThumbnailName() {
+        return thumbnailName;
+    }
+
+    public void setThumbnailName(String thumbnailName) {
+        this.thumbnailName = thumbnailName;
     }
 }

@@ -30,8 +30,8 @@ $(document).ready(function(){
 			case "unknown":gender="保密";break;
 			}
 			$("#gender").text(gender);
-			if(data.photoPath!="" && data.photoPath!=null){
-				$("#p").attr("src",data.photoPath);
+			if(data.avatarPath!=="" && data.avatarPath!==null){
+				$("#p").attr("src","/image/avatar/"+data.avatarPath);
 			}
 			if(data.personalSignature!=null){
 				$("#sig").text(data.personalSignature);

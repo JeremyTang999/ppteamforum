@@ -3,7 +3,7 @@
 >/api/user
 
 >#### method GET
-
+>>无需权限
 >>##### request 
 >>> ?id=123 或 ?from_context=true 或 ?username=abc
 
@@ -47,7 +47,7 @@
 >/api/user_info
 
 > #### method GET
-
+>>无需权限
 >> ##### request
 >>> ?id=123
 
@@ -65,7 +65,7 @@
 
 
 >#### method PUT
-
+>>需登录
 >>##### request
 
 >>>```json
@@ -95,6 +95,7 @@
 > /api/user_security
 
 > #### method GET
+>>需登录
 >> ##### request
 
 >>>[none]
@@ -115,6 +116,7 @@
  
 
 > #### method PUT
+>>需登录
 >> ##### request
 
 >>>"update"属性用于指定是否为修改用途，否则新密码、新密保问题无效
@@ -180,3 +182,130 @@
 
 >>>失败:
 >>>>code:400
+
+
+
+## Image
+
+###url
+> /image/avatar
+>>头像上传与获取
+
+>#### method POST
+>>需登录
+>>##### request
+
+>>>key:pic
+
+>>>value:[multipart]
+
+
+>>##### response
+
+>>>成功:
+
+>>>>code:200
+
+>>>>body:
+>>>>```json
+>>>>{"avatarName":"??"}
+>>>>```
+>>>失败:400
+
+>#### method GET
+>>无需权限
+>>##### request
+
+>>>/{avatarName}
+
+>>##### response
+
+>>>图片数据流
+
+
+## Article
+
+### url
+> /api/article
+
+>#### method GET
+
+>>获取单篇文章
+
+>>无需权限
+
+>>##### request
+
+>>> /{id}
+
+>>##### response
+
+>>>```json
+>>>{
+>>>    "title":"???",
+>>>    "thumbnailName":"???",
+>>>    "content":"???",
+>>>    "authorId":123,
+>>>    "creationTime":123,
+>>>    "readCount":123,
+>>>    "likeCount":123
+>>>}
+>>>```
+
+>#### method POST
+
+>> 发表文章
+
+>> 需admin权限
+
+>>##### request
+
+>>>```json
+>>>{
+>>>    "title":"???",
+>>>    "content":"???",
+>>>    "thumbnailName":"???",
+>>>    "topic":"???"
+>>>}
+>>>```
+
+
+### url
+> /api/articles
+>>获取多篇文章摘要
+
+>#### method GET
+
+>>##### request
+
+>>> ?order=[latest/hottest]&count=[数目]&page=[页序号]
+
+>>##### response
+
+>>>```json
+>>>[
+>>>      {
+>>>        "id":123,
+>>>        "title":"???",
+>>>        "thumbnailName":"???",
+>>>        "creationTime":123,
+>>>        "readCount":123,
+>>>        "likeCount":123
+>>>      },
+>>>      ...
+>>>]
+>>>```
+
+### url
+> /api/articles/page_count
+
+>#### method GET
+>>获取总页数
+
+>>##### request
+
+>>> ?topic=[sim/real]&count_per_page=[每页数目]
+
+>>##### response
+
+>>> [页数]

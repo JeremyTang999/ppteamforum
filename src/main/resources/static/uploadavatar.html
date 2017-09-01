@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#uploadbutton").click(function () {
+                var formData=new FormData();
+                formData.append("pic",$("#pics")[0].files[0]);
+                $.ajax({
+                    url:"/image/avatar",
+                    type:"POST",
+                    data:formData,
+                    processData:false,
+                    contentType:false,
+                    success:function (data,status) {
+                        alert("上传成功");
+                        location.href="/space.html";
+                    },
+                    error:function (xhr, status, error) {
+                        alert("上传失败");
+                        location.reload();
+                    }
+                });
+            });
+        })
+    </script>
+    <title>上传头像</title>
+</head>
+<body>
+<h1><a href="/">PP Team</a></h1>
+<hr/>
+    选择文件:<input type="file" accept="image/*" id="pics"/><br/>
+    <input type="button" id="uploadbutton" value="确认上传"></input>
+</body>
+</html>

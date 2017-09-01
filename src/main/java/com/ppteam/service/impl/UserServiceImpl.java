@@ -285,6 +285,7 @@ public class UserServiceImpl implements UserService {
      * 从security容器中获取用户名
      * @return
      */
+    @Override
     public String getUsernameFromSecurity(){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if(auth instanceof AnonymousAuthenticationToken){
@@ -299,6 +300,7 @@ public class UserServiceImpl implements UserService {
      * 从security容器获取用户名并据此从dao获取id
      * @return
      */
+    @Override
     public Integer getUserIdFromSecurity(){
         String username=getUsernameFromSecurity();
         if(username==null){
