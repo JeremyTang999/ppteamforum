@@ -18,6 +18,8 @@ public enum Topic {
     }
 
     public static Topic fromString(String value){
+        if(value==null)
+            return null;
         if(value.equals("sim")){
             return SIM;
         }

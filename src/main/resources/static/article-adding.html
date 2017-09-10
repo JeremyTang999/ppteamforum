@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章编写</title>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script>
+        function uploadPic() {
+            var formData=new FormData();
+            formData.append("pic",$("#pic")[0].files[0]);
+            $.ajax({
+                url:"/image/article",
+                type:"POST",
+                data:formData,
+                processData:false,
+                contentType:false,
+                error:function (xhr, status, error) {
+                    alert("上传失败");
+                },
+                success:function (data,status) {
+                    $("#pic_name").text(data.imageName);
+                }
+            });
+        }
+        function addArticle() {
+            $.ajax({
+                url:"/api/article",
+                type:"POST",
+                contentType:"application/json",
+                data:JSON.stringify({
+                    "title":$("#title").val(),
+                    "content":$("#content").val(),
+                    "thumbnailName":$("#thumbnail").val(),
+                    "topic":$("input[name='topic']:checked").val()
+                }),
+                error:function (xhr, status, err) {
+                    alert("发布失败");
+                },
+                success:function (data, status) {
+                    alert("发布成功");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+选择图片:<input type="file" accept="image/*" id="pic"/><br/>
+<input type="button" id="uploadbutton" value="确认上传" onclick="uploadPic()"></input>
+图片名:<span id="pic_name"></span>
+<hr/>
+标题:<input type="text" id="title"/><br/>
+主题:
+<input type="radio" name="topic" value="sim" checked="checked"/>sim
+<input type="radio" name="topic" value="real"/>real
+<br/>
+封面图:<input type="text" id="thumbnail"/><br/>
+正文:<textarea id="content"></textarea>
+<br/>
+<input type="button" id="submit" value="发布" onclick="addArticle()"/>
+</body>
+</html>

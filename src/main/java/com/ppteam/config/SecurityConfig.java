@@ -8,12 +8,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+
 
     @Autowired
     @Qualifier("dataSource")
@@ -39,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/security.html").authenticated()
                 .antMatchers(HttpMethod.POST,"/image/avatar").authenticated()
                 .antMatchers("/uploadavatar.html").authenticated()
+                .antMatchers(HttpMethod.POST,"/api/article").hasAuthority("admin")
+                .antMatchers(HttpMethod.POST,"/image/article").hasAuthority("admin")
+                .antMatchers("/article-adding.html").hasAuthority("admin")
                 .anyRequest().permitAll()
                 .and()
                     .formLogin()
@@ -53,7 +58,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .logoutUrl("/p_logout")
                     .logoutSuccessUrl("/")
                 .and()
-                .   csrf().disable();
+                    .csrf().disable()
+                .sessionManagement()
+                    .invalidSessionUrl("/timeout.html")
+                    .maximumSessions(1);
+
 
     }
 }

@@ -222,6 +222,43 @@
 
 >>>图片数据流
 
+### url
+> /image/article
+
+> #### method GET
+>>无需权限
+
+>>##### request
+
+>>>/{imageName}
+
+>>##### response
+
+>>>图片数据流
+
+
+>#### method POST
+>>admin权限
+
+>>##### request
+
+>>>key:pic
+
+>>>value:[multipart]
+
+
+
+>>##### response
+
+>>>成功:
+
+>>>>code:200
+
+>>>>body:
+>>>>```json
+>>>>{"imageName":"??"}
+>>>>```
+>>>失败:400
 
 ## Article
 
@@ -278,7 +315,8 @@
 
 >>##### request
 
->>> ?order=[latest/hottest]&count=[数目]&page=[页序号]
+>>> ?order=[latest/hottest]&topic=[sim/ream]&count=[数目]&page=[页序号]
+>>> top
 
 >>##### response
 

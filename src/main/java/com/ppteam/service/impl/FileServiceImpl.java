@@ -7,19 +7,18 @@ import com.ppteam.dao.exceptions.MoreThanOneResultException;
 import com.ppteam.entity.UserInfo;
 import com.ppteam.service.FileService;
 import com.ppteam.service.UserService;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import sun.security.x509.AVA;
 
 import java.io.*;
 
 @Service
 public class FileServiceImpl implements FileService {
 
-    private static final String AVATAR_FILE_NAME="C:/ppteamforum/avatar/";
+    private static final String AVATAR_FILE_PATH_NAME ="C:/ppteamforum/avatar/";
+
+    private static final String ARTICLE_IMAGE_FILE_PATH_NAME="C:/ppteamforum/article_image/";
 
     @Autowired
     private UserService userService;
@@ -32,8 +31,8 @@ public class FileServiceImpl implements FileService {
 
         int id=userService.getUserIdFromSecurity();
         String name=id+"";
-        System.out.println(id);
-        File file=new File(AVATAR_FILE_NAME+name);
+        //System.out.println(id);
+        File file=new File(AVATAR_FILE_PATH_NAME +name);
         try {
             multipartFile.transferTo(file);
         } catch (IOException e) {
@@ -54,11 +53,40 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public byte[] avatarDounload(String avatarName) {
+    public byte[] avatarDownload(String avatarName) {
 
         try {
-            File file=new File(AVATAR_FILE_NAME+avatarName);
+            File file=new File(AVATAR_FILE_PATH_NAME +avatarName);
             //FileInputStream fileInputStream=new FileInputStream(file);
+            BufferedInputStream inputStream=new BufferedInputStream(new FileInputStream(file));
+            byte[] bytes=new byte[(int)file.length()];
+            inputStream.read(bytes,0,(int)( file.length()-1));
+            inputStream.close();
+            return bytes;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String articleImageUpload(MultipartFile multipartFile) {
+        String name=System.currentTimeMillis()+"";
+        File file=new File(ARTICLE_IMAGE_FILE_PATH_NAME +name);
+        try {
+            multipartFile.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return name;
+    }
+
+    @Override
+    public byte[] articleImageDownload(String imageName) {
+        try {
+            File file=new File(ARTICLE_IMAGE_FILE_PATH_NAME +imageName);
             BufferedInputStream inputStream=new BufferedInputStream(new FileInputStream(file));
             byte[] bytes=new byte[(int)file.length()];
             inputStream.read(bytes,0,(int)( file.length()-1));

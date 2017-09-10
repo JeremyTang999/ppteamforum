@@ -61,12 +61,21 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public List<ArticleDto> getLatestArticles(int count, int page) {
-        return articleDao.getLatestArticles(count,page);
+    public List<ArticleDto> getLatestArticles(int count, int page,String topic) {
+        return articleDao.getLatestArticles(count,page,Topic.fromString(topic));
     }
 
     @Override
-    public List<ArticleDto> getHottestArticles(int count, int page) {
-        return articleDao.getHottestArticles(count,page);
+    public List<ArticleDto> getHottestArticles(int count, int page,String topic) {
+        return articleDao.getHottestArticles(count,page,Topic.fromString(topic));
+    }
+
+    @Override
+    public Integer getPageCount(String topic, Integer countPerPage) {
+        Integer count=articleDao.getCount(Topic.fromString(topic));
+        if(count==null)
+            return null;
+
+        return count/countPerPage+1;
     }
 }

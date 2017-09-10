@@ -1,33 +1,61 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"/>
-<title>PP Team</title>
-<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
-<script src="js/index.js"></script>
+    <title>PP Team</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="js/index.js"></script>
+
 </head>
 <body>
-<h1><a href="/">PP Team</a></h1>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#"><img src="img/logo.jpg"/> </a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a>首页</a></li>
+            <li><a href="#">要闻</a></li>
+            <li><a href="#">车队中心</a> </li>
+            <li><a href="#">论坛</a> </li>
+        </ul>
+        <div class="navbar-form navbar-right" role="search">
+            <a id="btn1" class="btn btn-default" href="/login.html">登录</a>
+            <a id="btn2" class="btn btn-default" href="/signup.html">注册</a>
+        </div>
+        <p  class="navbar-text navbar-right" id="username"></p>
+    </div>
+</nav>
 
-<div id="user">
+<!--轮播图容器-->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
 
+            <!--轮播-->
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-pause="false">
+                <!-- 轮播（Carousel）指标 -->
+                <ol id="carouselIndicators" class="carousel-indicators">
+
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div id="carouselInner" class="carousel-inner">
+
+                </div>
+                <!-- 轮播（Carousel）导航 -->
+                <a class="carousel-control left" href="#myCarousel"
+                   data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel"
+                   data-slide="next">&rsaquo;</a>
+            </div>
+        </div>
+    </div>
 </div>
-
-<hr/>
-
-<h3>
-	首页
-	<a href="/#">车队中心</a>
-	<a href="/#">论坛</a>
-</h3>
-
-<hr/>
-
-<h3>SIM资讯</h3>
-
-<hr/>
-
-<h3>赛车动态</h3>
-
 </body>
 </html>

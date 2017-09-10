@@ -1,6 +1,7 @@
 package com.ppteam.service;
 
 import com.ppteam.dto.ArticleDto;
+import com.ppteam.entity.Topic;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public interface ArticleService {
      * @param page
      * @return
      */
-    List<ArticleDto> getLatestArticles(int count,int page);
+    List<ArticleDto> getLatestArticles(int count,int page,String topic);
 
     /**
      * 获取多篇文章，按热度(阅读数)排序
@@ -37,5 +38,13 @@ public interface ArticleService {
      * @param page
      * @return
      */
-    List<ArticleDto> getHottestArticles(int count,int page);
+    List<ArticleDto> getHottestArticles(int count,int page,String topic);
+
+    /**
+     * 获取页数
+     * @param topic 文章板块
+     * @param countPerPage 每页文章数
+     * @return
+     */
+    Integer getPageCount(String topic,Integer countPerPage);
 }

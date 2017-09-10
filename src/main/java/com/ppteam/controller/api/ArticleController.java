@@ -41,14 +41,25 @@ public class ArticleController {
 
     @RequestMapping(value = "/articles",method = RequestMethod.GET)
     public List<ArticleDto> getArticles(@RequestParam("order") String order,
-        @RequestParam("count") int count,@RequestParam("page") int page){
+                                @RequestParam(value = "topic",required = false) String topic,
+                                @RequestParam("count") int count,@RequestParam("page") int page){
 
         if(order.equals("latest")){
-            return articleService.getLatestArticles(count,page);
+            return articleService.getLatestArticles(count,page,topic);
         }
         else if (order.equals("hottest")) {
-            return articleService.getHottestArticles(count, page);
+            return articleService.getHottestArticles(count, page,topic);
         }
         return null;
+    }
+
+    @RequestMapping("/articles/page_count")
+    public ResponseEntity getPageCount(@RequestParam("topic") String topic,
+                               @RequestParam("count_per_page") Integer countPerPage){
+        Integer count=articleService.getPageCount(topic,countPerPage);
+
+        return count==null ?
+                new ResponseEntity(HttpStatus.BAD_REQUEST) :
+                new ResponseEntity(count,HttpStatus.OK);
     }
 }

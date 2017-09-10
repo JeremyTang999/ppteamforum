@@ -1,21 +1,15 @@
 package com.ppteam.controller.file;
 
 import com.ppteam.service.FileService;
-import com.ppteam.service.impl.FileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +21,7 @@ public class ImageController {
     private FileService fileService;
 
     @RequestMapping(value = "/avatar",method = RequestMethod.POST)
-    public ResponseEntity avatarUpload(@RequestParam("pic")MultipartFile file, HttpServletResponse response) throws URISyntaxException{
+    public ResponseEntity avatarUpload(@RequestParam("pic")MultipartFile file, HttpServletResponse response) {
         String name=fileService.avatarUpload(file);
         Map<String,String> json=new HashMap<String,String>();
         //HttpHeaders headers=new HttpHeaders();
@@ -48,9 +42,31 @@ public class ImageController {
     public ResponseEntity avatarDownload(@PathVariable("avatarName")String name){
         HttpHeaders headers=new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        byte[] file=fileService.avatarDounload(name);
+        byte[] file=fileService.avatarDownload(name);
         return file==null ?
                 new ResponseEntity(HttpStatus.NOT_FOUND):
                 new ResponseEntity(file,headers,HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/article",method = RequestMethod.POST)
+    public ResponseEntity articleImageUpload(@RequestParam("pic")MultipartFile file){
+        String name=fileService.articleImageUpload(file);
+        if(name==null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        Map json=new HashMap();
+        json.put("imageName",name);
+        return new ResponseEntity(json,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/article/{imageName}",method = RequestMethod.GET)
+    public ResponseEntity articleImageDownload(@PathVariable("imageName")String name){
+        HttpHeaders headers=new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        byte[] file=fileService.articleImageDownload(name);
+        return file==null ?
+                new ResponseEntity(HttpStatus.NOT_FOUND):
+                new ResponseEntity(file,headers,HttpStatus.OK);
+    }
+
 }
