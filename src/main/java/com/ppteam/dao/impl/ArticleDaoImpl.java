@@ -33,7 +33,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao{
      */
     @Override
     public List<ArticleDto> getHottestArticles(int count, int page,Topic topic) {
-        String sql="select id,title,thumbnail_name,creation_time,read_count,like_count "+
+        String sql="select id,title,topic,thumbnail_name,creation_time,read_count,like_count "+
                 "from article ";
         Object[] objs;
         if(topic==null){
@@ -51,7 +51,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao{
 
     @Override
     public List<ArticleDto> getLatestArticles(int count, int page,Topic topic) {
-        String sql="select id,title,thumbnail_name,creation_time,read_count,like_count "+
+        String sql="select id,title,topic,thumbnail_name,creation_time,read_count,like_count "+
                 "from article ";
         Object[] objs;
         if(topic==null){
@@ -98,6 +98,7 @@ class CustomRowMapper implements RowMapper<ArticleDto>{
     public ArticleDto mapRow(ResultSet rs, int i) throws SQLException {
         ArticleDto article=new ArticleDto();
         article.setId(rs.getInt("id"));
+        article.setTopic(rs.getString("topic"));
         article.setTitle(rs.getString("title"));
         article.setThumbnailName(rs.getString("thumbnail_name"));
         article.setCreationTime(rs.getLong("creation_time"));

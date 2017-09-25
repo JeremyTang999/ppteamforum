@@ -5,7 +5,7 @@
 >#### method GET
 >>无需权限
 >>##### request 
->>> ?id=123 或 ?from_context=true 或 ?username=abc
+>>> ?id=[number] 或 ?from_context=[boolean] 或 ?username=[string]
 
 >>##### response
 
@@ -33,7 +33,7 @@
 >>>>}
 >>>>```
 
->>>未登录:
+>>>>未登录:
 >>>>code:400
 
 
@@ -274,12 +274,14 @@
 >>##### request
 
 >>> /{id}
+>>> ?increase_read_count=[boolean]
 
 >>##### response
 
 >>>```json
 >>>{
 >>>    "title":"???",
+>>>    "topic":"???",
 >>>    "thumbnailName":"???",
 >>>    "content":"???",
 >>>    "authorId":123,
@@ -324,6 +326,7 @@
 >>>[
 >>>      {
 >>>        "id":123,
+>>>        "topic":"???",
 >>>        "title":"???",
 >>>        "thumbnailName":"???",
 >>>        "creationTime":123,

@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/article-adding.html").hasAuthority("admin")
                 .anyRequest().permitAll()
                 .and()
-                    .formLogin()
+                .formLogin()
                     .loginPage("/login.html")
                     .loginProcessingUrl("/p_login")
                     .defaultSuccessUrl("/")
@@ -54,14 +54,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .usernameParameter("p_username")
                     .passwordParameter("p_password")
                 .and()
-                    .logout()
+                .logout()
                     .logoutUrl("/p_logout")
                     .logoutSuccessUrl("/")
+                    .deleteCookies("JSESSIONID")
                 .and()
-                    .csrf().disable()
-                .sessionManagement()
+                .csrf().disable()
+                /*.sessionManagement()
                     .invalidSessionUrl("/timeout.html")
-                    .maximumSessions(1);
+                    .maximumSessions(1)*/;
 
 
     }

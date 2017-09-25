@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>PP Team</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入 Bootstrap -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -10,7 +11,11 @@
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <script src="js/user.js"></script>
+    <script src="js/article_list.js"></script>
     <script src="js/index.js"></script>
+
+
 
 </head>
 <body>
@@ -21,7 +26,7 @@
     <div>
         <ul class="nav navbar-nav">
             <li class="active"><a>首页</a></li>
-            <li><a href="#">要闻</a></li>
+            <li><a href="/news.html">要闻</a></li>
             <li><a href="#">车队中心</a> </li>
             <li><a href="#">论坛</a> </li>
         </ul>
@@ -36,7 +41,7 @@
 <!--轮播图容器-->
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-10 col-md-offset-1">
 
             <!--轮播-->
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-pause="false">
@@ -54,6 +59,21 @@
                 <a class="carousel-control right" href="#myCarousel"
                    data-slide="next">&rsaquo;</a>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="realList">
+    <div class="row">
+        <div class="col-xs-10 col-md-offset-1">
+            <h2>赛车动态</h2>
+        </div>
+    </div>
+</div>
+<div class="container" id="simList">
+    <div class="row">
+        <div class="col-xs-10 col-md-offset-1">
+            <h2>模拟资讯</h2>
         </div>
     </div>
 </div>

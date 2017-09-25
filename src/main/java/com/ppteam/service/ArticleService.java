@@ -20,9 +20,10 @@ public interface ArticleService {
     /**
      * 获取单篇文章
      * @param id
+     * @param increaseReadCount 是否增加阅读数
      * @return
      */
-    ArticleDto getArticle(int id);
+    ArticleDto getArticle(int id,boolean increaseReadCount);
 
     /**
      * 获取多篇文章，按时间排序

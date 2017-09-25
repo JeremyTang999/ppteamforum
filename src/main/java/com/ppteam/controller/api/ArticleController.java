@@ -17,8 +17,10 @@ public class ArticleController {
     private ArticleService articleService;
 
     @RequestMapping(value = "/article/{id}",method = RequestMethod.GET)
-    public ResponseEntity getArticle(@PathVariable("id") int id){
-        ArticleDto article=articleService.getArticle(id);
+    public ResponseEntity getArticle(@PathVariable("id") int id,
+                                     @RequestParam(value = "increase_read_count",required = false)Boolean increaseReadCount){
+        ArticleDto article=articleService.getArticle(id,
+                increaseReadCount==null ? false : increaseReadCount);
         return article!=null ?
                 new ResponseEntity(article, HttpStatus.OK) :
                 new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -54,7 +56,7 @@ public class ArticleController {
     }
 
     @RequestMapping("/articles/page_count")
-    public ResponseEntity getPageCount(@RequestParam("topic") String topic,
+    public ResponseEntity getPageCount(@RequestParam(value = "topic",required = false) String topic,
                                @RequestParam("count_per_page") Integer countPerPage){
         Integer count=articleService.getPageCount(topic,countPerPage);
 

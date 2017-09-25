@@ -46,15 +46,22 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public ArticleDto getArticle(int id) {
+    public ArticleDto getArticle(int id,boolean increaseReadCount) {
         ArticleDto articleDto;
         try {
             Article article=articleDao.get(id);
             if(article==null)
                 return null;
             articleDto=new ArticleDto(article);
+
+            if(increaseReadCount) {
+                article.setReadCount(article.getReadCount() + 1);
+                articleDao.update(article);
+                articleDto.setReadCount(articleDto.getReadCount()+1);
+            }
+
             return articleDto;
-        } catch (DaoQueryFailException | MoreThanOneResultException e) {
+        } catch (DaoQueryFailException | MoreThanOneResultException | DaoUpdateFailException e) {
             e.printStackTrace();
             return null;
         }

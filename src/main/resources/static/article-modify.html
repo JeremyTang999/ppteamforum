@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章修改</title>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script>
+        var id;
+        function getArticle() {
+            id=$("#aid").val();
+            $.ajax({
+                url:"/api/article/"+id,
+                type:"GET",
+                success:function (data, status) {
+                    $("#title").val(data.title);
+                    $("#content").val(data.content);
+                }
+            })
+        }
+        function updateArticle() {
+        }
+    </script>
+</head>
+<body>
+文章id:<input id="aid"/><br/>
+<button onclick="getArticle()">获取</button><br/>
+标题<input id="title"/><br/>
+内容<textarea id="content"></textarea><br/>
+<button onclick="updateArticle()">修改</button>
+</body>
+</html>
